@@ -14,7 +14,7 @@ String BALL_COLOR_TYPE = "pastel"; // options: rand, water, pastel, middle, blac
 Ball[] balls;
 CollisionResolver collisionResolver;
 
-private class NowCollisionToResolve extends Exception{}
+private class NoCollisionToResolve extends Exception{}
 
 void setup() {
   fullScreen();
@@ -41,13 +41,13 @@ void resolveBallCollisions() {
     try {
       resolveAllCurrentBallCollisions();
     }
-    catch (NowCollisionToResolve e) {
+    catch (NoCollisionToResolve e) {
       break;
     }
   }
 }
 
-void resolveAllCurrentBallCollisions() throws NowCollisionToResolve {
+void resolveAllCurrentBallCollisions() throws NoCollisionToResolve {
   boolean collisionResolved = false;
   for (int i = 0; i < BALL_NUMBER; i++) {
     for (int j = i + 1; j < BALL_NUMBER; j++) {
@@ -56,7 +56,7 @@ void resolveAllCurrentBallCollisions() throws NowCollisionToResolve {
       resolveBallCollision(balls[i], balls[j]);
     }
   }
-  if (!collisionResolved) throw new NowCollisionToResolve();
+  if (!collisionResolved) throw new NoCollisionToResolve();
 }
 
 void resolveBallCollision(Ball ball1, Ball ball2) {
